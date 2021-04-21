@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import jsonImporter, {
-  isJSONfile,
+  isValidFile,
   isValidKey,
   toKebabCase,
   parseValue,
@@ -25,7 +25,7 @@ describe("node-sass-json-importer", function () {
 
   // TODO: Added to verify named exports + CommonJS default export hack (see index.js).
   it("provides named exports of internal methods", function () {
-    expect(isJSONfile("import.json")).to.be.true;
+    expect(isValidFile("import.json")).to.be.true;
   });
 });
 
@@ -173,6 +173,19 @@ describe("Import type test (JSON)", function () {
   it("supports es6 imports", function () {
     let result = sass.renderSync({
       file: "./test/fixtures/es6/style.scss",
+      importer: jsonImporter({
+        convertCase: true,
+      }),
+    });
+
+    expect(result.css.toString()).to.eql(
+      "body {\n  color: #f00;\n  color: #0f0;\n  color: #00f; }\n"
+    );
+  });
+
+  it("supports typescript files", function () {
+    let result = sass.renderSync({
+      file: "./test/fixtures/typescript/style.scss",
       importer: jsonImporter({
         convertCase: true,
       }),
@@ -358,21 +371,25 @@ describe("parseValue", function () {
   });
 });
 
-describe("isJSONfile", function () {
+describe("isValidFile", function () {
   it("returns true if the given URL is a JSON file", function () {
-    expect(isJSONfile("/test/variables.json")).to.be.true;
+    expect(isValidFile("/test/variables.json")).to.be.true;
   });
 
   it("returns true if the given URL is a JSON5 file", function () {
-    expect(isJSONfile("/test/variables.json5")).to.be.true;
+    expect(isValidFile("/test/variables.json5")).to.be.true;
   });
 
   it("returns true if the given URL is a JS file", function () {
-    expect(isJSONfile("/test/composed-variables.js")).to.be.true;
+    expect(isValidFile("/test/composed-variables.js")).to.be.true;
+  });
+
+  it("returns true if the given URL is a TS file", function () {
+    expect(isValidFile("/test/composed-variables.ts")).to.be.true;
   });
 
   it("returns false if the given URL is not a JSON or JSON5 file", function () {
-    expect(isJSONfile("/test/variables.not-json-or-json5")).to.be.false;
+    expect(isValidFile("/test/variables.not-json-or-json5")).to.be.false;
   });
 });
 

@@ -10,7 +10,7 @@ require("json5/lib/register"); // Enable JSON5 support
 
 function jsonImporter(options = {}) {
   return function (url, prev) {
-    if (!isJSONfile(url)) {
+    if (!isValidFile(url)) {
       return null;
     }
 
@@ -55,8 +55,8 @@ function jsonImporter(options = {}) {
   };
 }
 
-function isJSONfile(url) {
-  return /\.js(on5?)?$/.test(url);
+function isValidFile(url) {
+  return /\.(ts|js(on5?)?)$/.test(url);
 }
 
 function transformJSONtoSass(json, opts = {}) {
@@ -113,7 +113,7 @@ function parseMap(map, opts = {}) {
     .join(",")})`;
 }
 
-jsonImporter.isJSONfile = isJSONfile;
+jsonImporter.isValidFile = isValidFile;
 jsonImporter.transformJSONtoSass = transformJSONtoSass;
 jsonImporter.isValidKey = isValidKey;
 jsonImporter.toKebabCase = toKebabCase;
