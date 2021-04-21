@@ -15,7 +15,7 @@
     "json"
   ],
   "scripts": {
-    "test": "mocha --require @babel/register",
+    "test": "mocha --require ./test/babel-register.js",
     "build": "mkdirp dist && babel src -d dist",
     "prepublishOnly": "npm run build"
   },
