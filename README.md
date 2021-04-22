@@ -71,7 +71,7 @@ export default {
 To enable ES Module transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
 
 #### TypeScript
-To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
+To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.ts`.
 
 ## Importing
 
@@ -170,7 +170,7 @@ If you want to convert camelCase keys into CSS/SCSS compliant kebab-case keys, f
 
 ```json
 {
-  "bgBackgroundColor": '#0ff'
+  "bgBackgroundColor": "#0ff"
 }
 ```
 
