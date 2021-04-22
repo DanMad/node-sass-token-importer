@@ -1,67 +1,44 @@
-# node-sass-json-importer
+# Node Sass Token Importer
 
-JSON importer for [node-sass](https://github.com/sass/node-sass). Allows `@import`ing `.json` or `.json5` files in Sass files parsed by `node-sass`.
+This package extends Patrick Mowrer's [node-sass-json-importer](https://github.com/pmowrer/node-sass-json-importer).
 
-[![npm](https://img.shields.io/npm/v/node-sass-json-importer.svg)](https://www.npmjs.com/package/node-sass-json-importer)
-[![build status](https://travis-ci.org/pmowrer/node-sass-json-importer.svg?branch=master)](https://travis-ci.org/Updater/node-sass-json-importer)
+A token importer for [node-sass](https://github.com/sass/node-sass) that allows the importing of `.ts`, `.js`, `.json` and `.json5` files within Sass.
 
 ## Usage
 ### [node-sass](https://github.com/sass/node-sass)
-This module hooks into [node-sass's importer api](https://github.com/sass/node-sass#importer--v200---experimental).
+This package hooks into the node-sass [importer api](https://github.com/sass/node-sass#importer--v200---experimental).
 
 ```javascript
 var sass = require('node-sass');
-var jsonImporter = require('node-sass-json-importer');
+var tokenImporter = require('node-sass-token-importer');
 
 // Example 1
 sass.render({
   file: scss_filename,
-  importer: jsonImporter(),
+  importer: tokenImporter(),
   [, options..]
 }, function(err, result) { /*...*/ });
 
 // Example 2
 var result = sass.renderSync({
   data: scss_content
-  importer: [jsonImporter(), someOtherImporter]
+  importer: [tokenImporter(), someOtherImporter]
   [, options..]
 });
 ```
 
-### [node-sass](https://github.com/sass/node-sass) command-line interface
+### [node-sass](https://github.com/sass/node-sass) CLI
 
-To run this using node-sass CLI, point `--importer` to your installed json importer, for example: 
+To run this using node-sass CLI, point `--importer` to your installed `node-sass-token-importer`, for example:
 
 ```sh
-./node_modules/.bin/node-sass --importer node_modules/node-sass-json-importer/dist/cli.js --recursive ./src --output ./dist
+./node_modules/.bin/node-sass --importer node_modules/node-sass-token-importer/dist/cli.js --recursive ./src --output ./dist
 ```
 
 ### Webpack / [sass-loader](https://github.com/jtangelder/sass-loader)
 
-#### Webpack v1
-
 ```javascript
-import jsonImporter from 'node-sass-json-importer';
-
-// Webpack config
-export default {
-  module: {
-    loaders: [{
-      test: /\.scss$/,
-      loaders: ["style", "css", "sass"]
-    }],
-  },
-  // Apply the JSON importer via sass-loader's options.
-  sassLoader: {
-    importer: jsonImporter()
-  }
-};
-```
-
-#### Webpack v2
-
-```javascript
-import jsonImporter from 'node-sass-json-importer';
+import tokenImporter from 'node-sass-token-importer';
 
 // Webpack config
 export default {
@@ -71,17 +48,16 @@ export default {
         test: /\.scss$/,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            },
-          },
+          'css-loader
           {
             loader: 'sass-loader',
-            // Apply the JSON importer via sass-loader's options.
             options: {
-              importer: jsonImporter(),
+              // Apply the JSON importer via sass-loader's options.
+              sassOptions: {
+                importer: tokenImporter({
+                  convertCase: true,
+                }),
+              },
             },
           },
         },
@@ -91,10 +67,16 @@ export default {
 };
 ```
 
+#### ES Modules
+To enable ES Module transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
+
+#### TypeScript
+To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
+
 ## Importing
 
 ### Importing strings
-Since JSON doesn't map directly to SASS's data types, a common source of confusion is how to handle strings. While [SASS allows strings to be both quoted and unquoted](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#sass-script-strings), strings containing spaces, commas and/or other special characters have to be wrapped in quotes. In terms of JSON, this means the string has to be double quoted:
+Since JSON doesn't map directly to Sass's data types, a common source of confusion is how to handle strings. While [Sass allows strings to be both quoted and unquoted](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#sass-script-strings), strings containing spaces, commas and/or other special characters have to be wrapped in quotes. In terms of JSON, this means the string has to be double quoted:
 
 ##### Incorrect
 ```json
@@ -110,51 +92,67 @@ Since JSON doesn't map directly to SASS's data types, a common source of confusi
 }
 ```
 
-See discussion here for more:
+### Importing `.ts` and/or `.js` Files
 
-https://github.com/Updater/node-sass-json-importer/pull/5
+You can also import `.js` and `.ts` files. This way you can use TypeScript or JavaScript to compose and export your tokens.
 
-### Importing *.js Files
-
-You can also import *.js Files. This way you can use javascript to compose and export json structure for node-sass-json-importer.
-```
-const xl = require('./variables.json')
-const md = require('./variables-md.json')
-const xs = require('./variables-xs.json')
+```javascript
+// Example 1
+const colorBrandPrimary = '#f0f';
+const colorBrandSecondary = '#ff0';
 
 module.exports = {
-    xl,
-    md,
-    xs,
+  colorBrandPrimary,
+  colorBrandSecondary,
 }
+```
+
+```typescript
+// Example 2
+const colorBrandPrimary: string = '#f0f';
+const colorBrandSecondary: string = '#ff0';
+
+const tokens: Record<string, string> = {
+  colorBrandPrimary,
+  colorBrandSecondary,
+};
+
+export {
+  ...tokens,
+  tokens as default,
+};
 ```
 
 ## Custom resolver
 
-Should you care to resolve paths, say, starting with `~/` relative to project root or some other arbitrary directory, you can do it as follows:
+Should you care to resolve paths, say, starting with `~/` relative to project root or some other arbitrary directory, you can do so as follows:
 
-`1.sass`:
-
-```sass
-@import '~/1.json'
-body
-    margin: $body-margin
-```
-
-`json/1.json`:
+`json/tokens.json` file:
 
 ```json
-{"body-margin": 0}
+{
+  "body-margin": 0
+}
+```
+
+`styles.scss` file:
+
+```scss
+@import '~/tokens.json'
+
+body {
+  margin: $body-margin;
+}
 ```
 
 ```js
 var path = require('path');
 var sass = require('node-sass');
-var jsonImporter = require('../dist/node-sass-json-importer');
+var tokenImporter = require('../dist/node-sass-token-importer');
 
 sass.render({
-  file: './1.sass',
-  importer: jsonImporter({
+  file: './styles.scss',
+  importer: tokenImporter({
     resolver: function(dir, url) {
       return url.startsWith('~/')
         ? path.resolve(dir, 'json', url.substr(2))
@@ -166,38 +164,35 @@ sass.render({
 
 ## camelCase to kebab-case
 
-If you want to convert standard JavaScript caseCase keys into CSS/SCSS compliant kebab-case keys, for example:
+If you want to convert camelCase keys into CSS/SCSS compliant kebab-case keys, for example:
 
-`variables.json`:
+`tokens.json` file:
 
-```JS
+```json
 {
-  "bgBackgroundColor": 'red'
+  "bgBackgroundColor": '#0ff'
 }
 ```
 
-For usage like this:
+For usage like so:
 
-`style.scss`:
+`styles.scss` file:
 
-```SCSS
-@import "variables.json";
+```scss
+@import "tokens.json";
 
 div {
   background: $bg-background-color;
 }
 ```
 
-You can pass set the `convertCase` option to true as an argument to `jsonImporter` like so:
+You can set the `convertCase` option to `true` as an argument in `tokenImporter` like so:
 
-```js
+```javascript
 sass.render({
-  file: './1.sass',
-  importer: jsonImporter({
+  file: './styles.scss',
+  importer: tokenImporter({
     convertCase: true,
   }),
 }, function(err, result) { console.log(err || result.css.toString()) });
 ```
-
-## Thanks to
-This module is based on the [sass-json-vars](https://github.com/vigetlabs/sass-json-vars) gem, which unfortunately isn't compatible with `node-sass`.

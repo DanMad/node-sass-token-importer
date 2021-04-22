@@ -1,7 +1,14 @@
-/src
-/test
-.editorconfig
+# Git
 .gitignore
-.jshintrc
-.travis.yml
-*.sublime*
+
+# Ignore files
+.*ignore
+
+# Run Command files
+.*rc
+
+# Source directory
+src
+
+# Tests
+test

@@ -8,7 +8,7 @@ const dirname = require("path").dirname;
 
 require("json5/lib/register"); // Enable JSON5 support
 
-function jsonImporter(options = {}) {
+function tokenImporter(options = {}) {
   return function (url, prev) {
     if (!isValidFile(url)) {
       return null;
@@ -113,12 +113,12 @@ function parseMap(map, opts = {}) {
     .join(",")})`;
 }
 
-jsonImporter.isValidFile = isValidFile;
-jsonImporter.transformJSONtoSass = transformJSONtoSass;
-jsonImporter.isValidKey = isValidKey;
-jsonImporter.toKebabCase = toKebabCase;
-jsonImporter.parseValue = parseValue;
-jsonImporter.parseList = parseList;
-jsonImporter.parseMap = parseMap;
+tokenImporter.isValidFile = isValidFile;
+tokenImporter.transformJSONtoSass = transformJSONtoSass;
+tokenImporter.isValidKey = isValidKey;
+tokenImporter.toKebabCase = toKebabCase;
+tokenImporter.parseValue = parseValue;
+tokenImporter.parseList = parseList;
+tokenImporter.parseMap = parseMap;
 
-module.exports = jsonImporter;
+module.exports = tokenImporter;
