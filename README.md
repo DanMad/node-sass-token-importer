@@ -170,7 +170,7 @@ If you want to convert camelCase keys into CSS/SCSS compliant kebab-case keys, f
 
 ```json
 {
-  "bgBackgroundColor": '#0ff'
+  "bgBackgroundColor": "#0ff"
 }
 ```
 
