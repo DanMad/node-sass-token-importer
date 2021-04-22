@@ -1,3 +1,3 @@
-const jsonImporter = require("./index");
+const tokenImporter = require("./index");
 
-module.exports = jsonImporter();
+module.exports = tokenImporter();

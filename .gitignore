@@ -1,5 +1,11 @@
-node_modules/
-dist/
-*.sublime*
-.idea/
-*.iml
+# Dependencies
+node_modules
+
+# Distributed version
+dist
+
+# Logs
+*.log
+
+# MacOS
+.DS_Store

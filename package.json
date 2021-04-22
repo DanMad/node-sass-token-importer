@@ -1,26 +1,27 @@
 {
-  "name": "node-sass-json-importer",
-  "version": "0.0.0-development",
-  "description": "Allows importing json in sass files parsed by node-sass.",
-  "main": "dist/index.js",
-  "license": "MIT",
+  "name": "node-sass-token-importer",
+  "version": "1.0.0",
+  "description": "Allows the importing of TypeScript, JavaScript, and JSON in Sass files parsed by node-sass",
+  "keywords": [
+    "importer",
+    "javascript",
+    "json",
+    "node-sass",
+    "sass",
+    "typescript",
+    "tokens"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Updater/node-sass-json-importer.git"
+    "url": "https://github.com/DanMad/node-sass-token-importer.git"
   },
-  "keywords": [
-    "sass",
-    "node-sass",
-    "importer",
-    "json"
-  ],
+  "license": "MIT",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --require ./test/babel-register.js",
     "build": "mkdirp dist && babel src -d dist",
-    "prepublishOnly": "npm run build"
-  },
-  "peerDependencies": {
-    "node-sass": ">=5.0.0"
+    "prepublishOnly": "npm run build",
+    "sort-package": "sort-package-json",
+    "test": "mocha --require ./test/babel-register.js"
   },
   "dependencies": {
     "is-there": "^4.5.1",
@@ -37,6 +38,10 @@
     "mocha": "^8.3.2",
     "node-sass": "^5.0.0",
     "semantic-release": "^17.4.2",
-    "semantic-release-github-pr": "^6.0.1"
+    "semantic-release-github-pr": "^6.0.1",
+    "sort-package-json": "^1.49.0"
+  },
+  "peerDependencies": {
+    "node-sass": ">=5.0.0"
   }
 }
