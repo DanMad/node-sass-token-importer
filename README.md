@@ -71,7 +71,7 @@ export default {
 To enable ES Module transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
 
 #### TypeScript
-To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
+To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.ts`.
 
 ## Importing
 
