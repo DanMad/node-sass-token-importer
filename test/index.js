@@ -2,6 +2,7 @@
 import tokenImporter, {
   isValidFile,
   isValidKey,
+  toFileName,
   toKebabCase,
   parseValue,
 } from "../src";
@@ -12,7 +13,7 @@ import { resolve } from "path";
 const requiredImporter = require("../src/index");
 const EXPECTATION = "body {\n  color: #c33; }\n";
 
-describe("node-sass-json-importer", function () {
+describe("node-sass-token-importer", function () {
   // TODO: Added to verify named exports + CommonJS default export hack (see index.js).
   it("provides the default export when using node require to import", function () {
     let result = sass.renderSync({
@@ -54,7 +55,7 @@ describe("Import type test (JSON)", function () {
       importer: tokenImporter(),
     });
 
-    expect(result.css.toString()).to.eql(EXPECTATION);
+    expect(result.css.toString()).to.eql('body {\n  color: #c33;\n  font-family: "Open Sans", Helvetica, Arial, sans-serif; }\n');
   });
 
   it("imports map from json with array as top level", function () {
@@ -179,7 +180,7 @@ describe("Import type test (JSON)", function () {
     });
 
     expect(result.css.toString()).to.eql(
-      "body {\n  color: #f00;\n  color: #0f0;\n  color: #00f; }\n"
+      'body {\n  content: "(color-blue: #00f, color-green: #0f0, color-red: #f00)";\n  color: #f00;\n  color: #0f0;\n  color: #00f; }\n'
     );
   });
 
@@ -192,7 +193,7 @@ describe("Import type test (JSON)", function () {
     });
 
     expect(result.css.toString()).to.eql(
-      "body {\n  color: #f00;\n  color: #0f0;\n  color: #00f; }\n"
+      'body {\n  content: "(color-blue: #00f, color-green: #0f0, color-red: #f00)";\n  color: #f00;\n  color: #0f0;\n  color: #00f; }\n'
     );
   });
 });
@@ -222,7 +223,7 @@ describe("Import type test (JSON5)", function () {
       importer: tokenImporter(),
     });
 
-    expect(result.css.toString()).to.eql(EXPECTATION);
+    expect(result.css.toString()).to.eql('body {\n  color: #c33;\n  font-family: "Open Sans", Helvetica, Arial, sans-serif; }\n');
   });
 
   it("imports map from json with array as top level", function () {
@@ -408,6 +409,28 @@ describe("isValidKey", function () {
 
   it("returns true if the given key does not start with @, : or $", function () {
     expect(isValidKey("valid")).to.be.true;
+  });
+});
+
+describe("toFileName", function () {
+  it("can handle extensions with two characters", function () {
+    expect(toFileName("../srcDir/namespace.js")).to.eql("namespace");
+  });
+
+  it("can handle extensions with three characters", function () {
+    expect(toFileName("../a-long-directory-name/subSDir/namespace.tsx")).to.eql("namespace");
+  });
+
+  it("can handle extensions with four characters", function () {
+    expect(toFileName("tokens.json")).to.eql("tokens");
+  });
+
+  it("can handle extensions with five characters (and/or digits)", function () {
+    expect(toFileName("designSystemVars.json5")).to.eql("design-system-vars");
+  });
+
+  it("can handle filename with spaces", function () {
+    expect(toFileName("../dir/ file name.ts")).to.eql("file-name");
   });
 });
 

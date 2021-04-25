@@ -2,10 +2,15 @@ const colorRed = "#f00";
 const colorGreen = "#0f0";
 const colorBlue = "#00f";
 
-const tokens = {
-  colorRed,
-  colorGreen,
+const variables = {
   colorBlue,
+  colorGreen,
+  colorRed,
 };
 
-export { colorRed, colorGreen, colorBlue, tokens as default };
+export {
+  colorBlue,
+  colorGreen,
+  colorRed,
+  variables as default
+};

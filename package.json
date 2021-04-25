@@ -1,6 +1,6 @@
 {
   "name": "node-sass-token-importer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Allows the importing of TypeScript, JavaScript, and JSON in Sass files parsed by node-sass",
   "keywords": [
     "importer",
@@ -21,7 +21,7 @@
     "build": "mkdirp dist && babel src -d dist",
     "prepublishOnly": "npm run build",
     "sort-package": "sort-package-json",
-    "test": "mocha --require ./test/babel-register.js"
+    "test": "mocha --require ./utils/babel-register.js"
   },
   "dependencies": {
     "is-there": "^4.5.1",
