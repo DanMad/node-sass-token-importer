@@ -7,7 +7,10 @@ const extname = require("path").extname;
 const dirname = require("path").dirname;
 
 require("json5/lib/register"); // Enable JSON5 support
-// require("../utils/babel-register"); // To fix for CLI and node-sass methods
+
+if (process.title === 'node' || process.title === 'node-sass') {
+  require("../utils/babel-register");
+}
 
 function tokenImporter(options = {}) {
   return function (url, prev) {
