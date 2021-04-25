@@ -17,7 +17,9 @@ sass.render({
   file: scss_filename,
   importer: tokenImporter(),
   [, options..]
-}, function(err, result) { /*...*/ });
+}, function(err, result) {
+  console.log(result.css.toString())
+});
 
 // Example 2
 var result = sass.renderSync({
@@ -54,9 +56,7 @@ export default {
             options: {
               // Apply the JSON importer via sass-loader's options.
               sassOptions: {
-                importer: tokenImporter({
-                  convertCase: true,
-                }),
+                importer: tokenImporter(),
               },
             },
           },
@@ -206,4 +206,8 @@ sass.render({
     convertCase: true,
   }),
 }, function(err, result) { console.log(err || result.css.toString()) });
+```
+
+```sh
+./node_modules/.bin/node-sass --importer node_modules/node-sass-token-importer/dist/cli.js --convertCase --recursive ./src --output ./dist
 ```

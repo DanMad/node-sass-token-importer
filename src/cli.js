@@ -1,3 +1,6 @@
+const _ = require("lodash");
 const tokenImporter = require("./index");
 
-module.exports = tokenImporter();
+const options = _.includes(process.argv, '--convertCase') ? { convertCase: true } : {};
+
+module.exports = tokenImporter(options);
