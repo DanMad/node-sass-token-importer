@@ -96,7 +96,9 @@ function toKebabCase(key) {
 
 function parseValue(value, opts = {}) {
   if (_.isArray(value)) {
-    return parseList(value, opts);
+    return parseList(value);
+  } else if (/,/.test(value)) {
+    return `(${value})`;
   } else if (_.isPlainObject(value)) {
     return parseMap(value, opts);
   } else if (value === "") {
