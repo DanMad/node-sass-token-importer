@@ -1,6 +1,7 @@
 @import "variables.js";
 
 body {
+  content: '#{$variables}';
   color: $color-red;
   color: $color-green;
   color: $color-blue;

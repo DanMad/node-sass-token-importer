@@ -21,12 +21,12 @@ function tokenImporter(options = {}) {
     let paths = [].concat(dirname(prev)).concat(includePaths);
 
     const resolver = options.resolver || resolve;
-    let fileName = paths
+    let filePath = paths
       .map((path) => resolver(path, url))
       .filter(isThere)
       .pop();
 
-    if (!fileName) {
+    if (!filePath) {
       return new Error(
         `Unable to find "${url}" from the following path(s): ${paths.join(
           ", "
@@ -36,17 +36,17 @@ function tokenImporter(options = {}) {
 
     // Prevent file from being cached by Node's `require` on continuous builds.
     // https://github.com/Updater/node-sass-json-importer/issues/21
-    delete require.cache[require.resolve(fileName)];
+    delete require.cache[require.resolve(filePath)];
 
     try {
-      const fileContents = require(fileName);
-      const extensionlessFilename = basename(fileName, extname(fileName));
+      const fileContents = require(filePath);
+      const extensionlessFilename = basename(filePath, extname(filePath));
       const json = Array.isArray(fileContents)
         ? { [extensionlessFilename]: fileContents }
         : fileContents;
 
       return {
-        contents: transformJSONtoSass(json, options),
+        contents: transformJSONtoSass(json, filePath, options),
       };
     } catch (error) {
       return new Error(
@@ -60,22 +60,31 @@ function isValidFile(url) {
   return /\.(ts|js(on5?)?)$/.test(url);
 }
 
-function transformJSONtoSass(json, opts = {}) {
+function transformJSONtoSass(json, filePath, opts = {}) {
   return Object.keys(json)
     .filter((key) => isValidKey(key))
     .filter((key) => json[key] !== "#")
     .map(
-      (key) =>
-        `$${opts.convertCase ? toKebabCase(key) : key}: ${parseValue(
+      (key) => {
+        const isDefaultKey = key === 'default';
+        const validKey = isDefaultKey ? toFileName(filePath) : key;
+
+        return `$${opts.convertCase ? toKebabCase(validKey) : validKey}: ${parseValue(
           json[key],
-          opts
-        )};`
+            opts
+          )};`
+      }
     )
     .join("\n");
 }
 
 function isValidKey(key) {
   return /^[^$@:].*/.test(key);
+}
+
+function toFileName (filePath) {
+  const fileName = filePath.match(/[_0-9a-z\.\-\s]+(?=\.[0-9a-z]{2,5}$)/i)[0];
+  return toKebabCase(fileName);
 }
 
 function toKebabCase(key) {
@@ -115,11 +124,12 @@ function parseMap(map, opts = {}) {
 }
 
 tokenImporter.isValidFile = isValidFile;
-tokenImporter.transformJSONtoSass = transformJSONtoSass;
 tokenImporter.isValidKey = isValidKey;
-tokenImporter.toKebabCase = toKebabCase;
-tokenImporter.parseValue = parseValue;
 tokenImporter.parseList = parseList;
 tokenImporter.parseMap = parseMap;
+tokenImporter.parseValue = parseValue;
+tokenImporter.toFileName  = toFileName;
+tokenImporter.toKebabCase = toKebabCase;
+tokenImporter.transformJSONtoSass = transformJSONtoSass;
 
 module.exports = tokenImporter;
