@@ -24,6 +24,7 @@
     "test": "mocha --require ./utils/babel-register.js"
   },
   "dependencies": {
+    "@babel/register": "^7.13.16",
     "is-there": "^4.5.1",
     "json5": "^2.2.0",
     "lodash": "^4.17.21"
@@ -32,7 +33,6 @@
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
     "@babel/preset-env": "^7.13.15",
-    "@babel/register": "^7.13.16",
     "chai": "^4.3.4",
     "mkdirp": "^1.0.4",
     "mocha": "^8.3.2",

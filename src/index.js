@@ -35,7 +35,6 @@ function tokenImporter(options = {}) {
     }
 
     // Prevent file from being cached by Node's `require` on continuous builds.
-    // https://github.com/Updater/node-sass-json-importer/issues/21
     delete require.cache[require.resolve(filePath)];
 
     try {
@@ -50,7 +49,7 @@ function tokenImporter(options = {}) {
       };
     } catch (error) {
       return new Error(
-        `node-sass-json-importer: Error transforming JSON/JSON5 to SASS. Check if your JSON/JSON5 parses correctly. ${error}`
+        `node-sass-token-importer: Error transforming JSON/JSON5 to SASS. Check if your JSON/JSON5 parses correctly. ${error}`
       );
     }
   };
