@@ -1,4 +1,4 @@
-@import "variables.ts";
+@import 'variables.ts';
 
 body {
   content: '#{$variables}';
