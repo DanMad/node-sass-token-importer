@@ -1,11 +1,12 @@
 {
   "name": "node-sass-token-importer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Allows the importing of TypeScript, JavaScript, and JSON in Sass files parsed by node-sass",
   "keywords": [
     "importer",
     "javascript",
     "json",
+    "json5",
     "node-sass",
     "sass",
     "typescript",

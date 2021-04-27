@@ -99,8 +99,6 @@ function toKebabCase(key) {
 function parseValue(value, opts = {}) {
   if (_.isArray(value)) {
     return parseList(value);
-  } else if (/,/.test(value)) {
-    return `(${value})`;
   } else if (_.isPlainObject(value)) {
     return parseMap(value, opts);
   } else if (value === "") {
@@ -110,7 +108,7 @@ function parseValue(value, opts = {}) {
   }
 }
 
-function parseList(list, opts = {}) {
+function parseList(list) {
   return `(${list.map((value) => parseValue(value)).join(",")})`;
 }
 
