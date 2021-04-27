@@ -3,6 +3,11 @@
     'red': '#c33' // Nested object
   },
   'fonts': {
-    'sans-serif': '"Open Sans", Helvetica, Arial, sans-serif'
+    'sans-serif': [
+      '"Open Sans"',
+      'Helvetica',
+      'Arial',
+      'sans-serif'
+    ]
   }
 }
