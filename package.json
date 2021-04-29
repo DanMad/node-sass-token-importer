@@ -49,5 +49,8 @@
   },
   "peerDependencies": {
     "node-sass": ">=5.0.0"
+  },
+  "engines": {
+    "node": "12.19.0"
   }
 }
