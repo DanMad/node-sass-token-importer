@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: CI
+      - name: Setup CI
         uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: ci
