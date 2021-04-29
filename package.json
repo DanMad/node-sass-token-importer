@@ -23,7 +23,8 @@
     "prepublishOnly": "npm run build",
     "sort-package": "sort-package-json",
     "test": "mocha --require ./utils/babel-register.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ci": "rm -rf node_modules && yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@babel/register": "^7.13.16",

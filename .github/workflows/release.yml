@@ -16,14 +16,14 @@ jobs:
           node-version: "12.x"
       - uses: Borales/actions-yarn@v2.3.0
         with:
-          cmd: install
+          cmd: ci
       - uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: build
       - uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: test
-      - run: npx semantic-release --branches main
+      - run: sudo npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
