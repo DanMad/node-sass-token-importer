@@ -10,21 +10,26 @@ jobs:
     name: Release
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-node@v1
+      - name: Checkout main
+        uses: actions/checkout@main
+      - name: Install node
+        uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - uses: Borales/actions-yarn@v2.3.0
+      - name: CI
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: ci
-      - uses: Borales/actions-yarn@v2.3.0
+      - name: Build
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: build
-      - uses: Borales/actions-yarn@v2.3.0
+      - name: Tests
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: test
-      - run: sudo chown -R $(whoami) ~/.npm
-      - run: npx semantic-release --branches main
+      - name: Release
+      - run: yarn run semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
