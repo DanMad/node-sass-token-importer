@@ -23,7 +23,8 @@ jobs:
       - uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: test
-      - run: npx semantic-release --branches main --no-ci
+      - run: sudo chown -R $(whoami) ~/.npm
+      - run: npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
