@@ -15,19 +15,15 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
+          node-version: "12.19.0"
+      - name: Install Yarn
+        run: npm install --global yarn
       - name: Setup CI
-        uses: Borales/actions-yarn@v2.3.0
-        with:
-          cmd: ci
+        run: yarn ci
       - name: Build
-        uses: Borales/actions-yarn@v2.3.0
-        with:
-          cmd: build
+        run: yarn build
       - name: Tests
-        uses: Borales/actions-yarn@v2.3.0
-        with:
-          cmd: test
+        run: yarn test
       - name: Release
         run: yarn run semantic-release --branches main
         env:
