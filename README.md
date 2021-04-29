@@ -5,7 +5,9 @@ This package extends Patrick Mowrer's [node-sass-json-importer](https://github.c
 A token importer for [node-sass](https://github.com/sass/node-sass) that allows the importing of `.ts`, `.js`, `.json` and `.json5` files within Sass.
 
 ## Usage
+
 ### [node-sass](https://github.com/sass/node-sass)
+
 This package hooks into the node-sass [importer api](https://github.com/sass/node-sass#importer--v200---experimental).
 
 ```javascript
@@ -68,17 +70,21 @@ export default {
 ```
 
 #### ES Modules
+
 To enable ES Module transpilation rename your `webpack.config.js` file to `webpack.config.babel.js`.
 
 #### TypeScript
+
 To enable TypeScript transpilation rename your `webpack.config.js` file to `webpack.config.babel.ts`.
 
 ## Importing
 
 ### Importing strings
+
 Since JSON doesn't map directly to Sass's data types, a common source of confusion is how to handle strings. While [Sass allows strings to be both quoted and unquoted](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#sass-script-strings), strings containing spaces, commas and/or other special characters have to be wrapped in quotes. In terms of JSON, this means the string has to be double quoted:
 
 ##### Incorrect
+
 ```json
 {
   "description": "A sentence with spaces."
@@ -86,6 +92,7 @@ Since JSON doesn't map directly to Sass's data types, a common source of confusi
 ```
 
 ##### Correct
+
 ```json
 {
   "description": "'A sentence with spaces.'"
@@ -93,21 +100,19 @@ Since JSON doesn't map directly to Sass's data types, a common source of confusi
 ```
 
 ### Importing comma separated arguments
+
 It is recommended that you import comma separated arguments as arrays. This will ensure the scalability of your variables, allowing for them to be stored as `!global` variables and values of a `map-key`.
 
 ##### Recommended
+
 ```json
 {
-  "fontFamily": [
-    "'Open Sans'",
-    "Helvetica",
-    "Arial",
-    "sans-serif"
-  ]
+  "fontFamily": ["'Open Sans'", "Helvetica", "Arial", "sans-serif"]
 }
 ```
 
 ##### Not recommended
+
 ```json
 {
   "fontFamily": "'Open Sans', Helvetica, Arial, sans-serif"
@@ -126,7 +131,7 @@ const colorBrandSecondary = '#ff0';
 module.exports = {
   colorBrandPrimary,
   colorBrandSecondary,
-}
+};
 ```
 
 ```typescript
@@ -171,7 +176,7 @@ Should you care to resolve paths, say, starting with `~/` relative to project ro
 `styles.scss` file:
 
 ```scss
-@import '~/tokens.json'
+@import '~/tokens.json';
 
 body {
   margin: $body-margin;
@@ -183,16 +188,21 @@ var path = require('path');
 var sass = require('node-sass');
 var tokenImporter = require('../dist/node-sass-token-importer');
 
-sass.render({
-  file: './styles.scss',
-  importer: tokenImporter({
-    resolver: function(dir, url) {
-      return url.startsWith('~/')
-        ? path.resolve(dir, 'json', url.substr(2))
-        : path.resolve(dir, url);
-    },
-  }),
-}, function(err, result) { console.log(err || result.css.toString()) });
+sass.render(
+  {
+    file: './styles.scss',
+    importer: tokenImporter({
+      resolver: function (dir, url) {
+        return url.startsWith('~/')
+          ? path.resolve(dir, 'json', url.substr(2))
+          : path.resolve(dir, url);
+      },
+    }),
+  },
+  function (err, result) {
+    console.log(err || result.css.toString());
+  },
+);
 ```
 
 ## camelCase to kebab-case
@@ -212,7 +222,7 @@ For usage like so:
 `styles.scss` file:
 
 ```scss
-@import "tokens.json";
+@import 'tokens.json';
 
 div {
   background: $bg-background-color;
@@ -222,12 +232,17 @@ div {
 You can set the `convertCase` option to `true` as an argument in `tokenImporter` like so:
 
 ```javascript
-sass.render({
-  file: './styles.scss',
-  importer: tokenImporter({
-    convertCase: true,
-  }),
-}, function(err, result) { console.log(err || result.css.toString()) });
+sass.render(
+  {
+    file: './styles.scss',
+    importer: tokenImporter({
+      convertCase: true,
+    }),
+  },
+  function (err, result) {
+    console.log(err || result.css.toString());
+  },
+);
 ```
 
 ```sh

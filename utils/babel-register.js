@@ -1,11 +1,11 @@
-require("@babel/register")({
-  extensions: [".js", ".ts"],
+require('@babel/register')({
+  extensions: ['.js', '.ts'],
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         targets: {
-          node: "current",
+          node: 'current',
         },
       },
     ],

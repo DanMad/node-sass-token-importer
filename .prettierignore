@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+
+# Ignore files
+.*ignore
+
+# License
+LICENSE
+
+# MacOS
+.DS_Store
+
+# Package files
+yarn.lock
+
+# Run Command files
+.*rc
+
+# Files within hidden folders
+.*/**
+
+# Distribution folder
+dist

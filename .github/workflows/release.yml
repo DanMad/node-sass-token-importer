@@ -1,6 +1,5 @@
 name: Release npm package
 
-
 on:
   push:
     branches:
