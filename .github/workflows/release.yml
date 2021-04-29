@@ -1,5 +1,6 @@
 name: Release npm package
 
+
 on:
   push:
     branches:
@@ -14,9 +15,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - uses: Borales/actions-yarn@v2.3.0
+        with:
+          cmd: build
+      - uses: Borales/actions-yarn@v2.3.0
+        with:
+          cmd: test
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
