@@ -1,13 +1,8 @@
 {
-  'colors': {
-    'red': '#c33' // Nested object
+  colors: {
+    red: '#c33', // Nested object
   },
-  'fonts': {
-    'sans-serif': [
-      '"Open Sans"',
-      'Helvetica',
-      'Arial',
-      'sans-serif'
-    ]
-  }
+  fonts: {
+    'sans-serif': ['"Open Sans"', 'Helvetica', 'Arial', 'sans-serif'],
+  },
 }

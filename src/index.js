@@ -1,15 +1,15 @@
-const _ = require("lodash");
-const isThere = require("is-there");
-const path = require("path");
-const resolve = require("path").resolve;
-const basename = require("path").basename;
-const extname = require("path").extname;
-const dirname = require("path").dirname;
+const _ = require('lodash');
+const isThere = require('is-there');
+const path = require('path');
+const resolve = require('path').resolve;
+const basename = require('path').basename;
+const extname = require('path').extname;
+const dirname = require('path').dirname;
 
-require("json5/lib/register"); // Enable JSON5 support
+require('json5/lib/register'); // Enable JSON5 support
 
 if (process.title === 'node' || process.title === 'node-sass') {
-  require("../utils/babel-register");
+  require('../utils/babel-register');
 }
 
 function tokenImporter(options = {}) {
@@ -32,8 +32,8 @@ function tokenImporter(options = {}) {
     if (!filePath) {
       return new Error(
         `Unable to find "${url}" from the following path(s): ${paths.join(
-          ", "
-        )}. Check includePaths.`
+          ', ',
+        )}. Check includePaths.`,
       );
     }
 
@@ -52,7 +52,7 @@ function tokenImporter(options = {}) {
       };
     } catch (error) {
       return new Error(
-        `node-sass-token-importer: Error transforming JSON/JSON5 to SASS. Check if your JSON/JSON5 parses correctly. ${error}`
+        `node-sass-token-importer: Error transforming JSON/JSON5 to SASS. Check if your JSON/JSON5 parses correctly. ${error}`,
       );
     }
   };
@@ -65,26 +65,23 @@ function isValidFile(url) {
 function transformJSONtoSass(json, filePath, opts = {}) {
   return Object.keys(json)
     .filter((key) => isValidKey(key))
-    .filter((key) => json[key] !== "#")
-    .map(
-      (key) => {
-        const isDefaultKey = key === 'default';
-        const validKey = isDefaultKey ? toFileName(filePath) : key;
+    .filter((key) => json[key] !== '#')
+    .map((key) => {
+      const isDefaultKey = key === 'default';
+      const validKey = isDefaultKey ? toFileName(filePath) : key;
 
-        return `$${opts.convertCase ? toKebabCase(validKey) : validKey}: ${parseValue(
-          json[key],
-            opts
-          )};`
-      }
-    )
-    .join("\n");
+      return `$${
+        opts.convertCase ? toKebabCase(validKey) : validKey
+      }: ${parseValue(json[key], opts)};`;
+    })
+    .join('\n');
 }
 
 function isValidKey(key) {
   return /^[^$@:].*/.test(key);
 }
 
-function toFileName (filePath) {
+function toFileName(filePath) {
   const fileName = filePath.match(/[_0-9a-z\.\-\s]+(?=\.[0-9a-z]{2,5}$)/i)[0];
   return toKebabCase(fileName);
 }
@@ -93,7 +90,7 @@ function toKebabCase(key) {
   return key
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+|\b)|[A-Z]?[a-z]+|[A-Z]|[0-9]+/g)
     .map((word) => word.toLowerCase())
-    .join("-");
+    .join('-');
 }
 
 function parseValue(value, opts = {}) {
@@ -101,7 +98,7 @@ function parseValue(value, opts = {}) {
     return parseList(value);
   } else if (_.isPlainObject(value)) {
     return parseMap(value, opts);
-  } else if (value === "") {
+  } else if (value === '') {
     return '""'; // Return explicitly an empty string (Sass would otherwise throw an error as the variable is set to nothing)
   } else {
     return value;
@@ -109,7 +106,7 @@ function parseValue(value, opts = {}) {
 }
 
 function parseList(list) {
-  return `(${list.map((value) => parseValue(value)).join(",")})`;
+  return `(${list.map((value) => parseValue(value)).join(',')})`;
 }
 
 function parseMap(map, opts = {}) {
@@ -119,10 +116,10 @@ function parseMap(map, opts = {}) {
       (key) =>
         `${opts.convertCase ? toKebabCase(key) : key}: ${parseValue(
           map[key],
-          opts
-        )}`
+          opts,
+        )}`,
     )
-    .join(",")})`;
+    .join(',')})`;
 }
 
 tokenImporter.isValidFile = isValidFile;
@@ -130,7 +127,7 @@ tokenImporter.isValidKey = isValidKey;
 tokenImporter.parseList = parseList;
 tokenImporter.parseMap = parseMap;
 tokenImporter.parseValue = parseValue;
-tokenImporter.toFileName  = toFileName;
+tokenImporter.toFileName = toFileName;
 tokenImporter.toKebabCase = toKebabCase;
 tokenImporter.transformJSONtoSass = transformJSONtoSass;
 
