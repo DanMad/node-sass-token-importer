@@ -1,0 +1,31 @@
+name: Next - Release npm package
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  release:
+    name: Next - Release
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout next
+        uses: actions/checkout@next
+      - name: Install Node.JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.19.0"
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.10
+      - name: Setup CI
+        run: yarn ci
+      - name: Build
+        run: yarn build
+      - name: Tests
+        run: yarn test
+      - name: Release
+        run: yarn run semantic-release --branches next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
