@@ -22,7 +22,8 @@
     "build": "mkdirp dist && babel src -d dist",
     "prepublishOnly": "npm run build",
     "sort-package": "sort-package-json",
-    "test": "mocha --require ./utils/babel-register.js"
+    "test": "mocha --require ./utils/babel-register.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@babel/register": "^7.13.16",
@@ -35,9 +36,12 @@
     "@babel/core": "^7.13.16",
     "@babel/preset-env": "^7.13.15",
     "chai": "^4.3.4",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
     "mkdirp": "^1.0.4",
     "mocha": "^8.3.2",
     "node-sass": "^5.0.0",
+    "prettier": "^2.2.1",
     "semantic-release": "^17.4.2",
     "semantic-release-github-pr": "^6.0.1",
     "sort-package-json": "^1.49.0"

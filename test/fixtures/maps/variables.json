@@ -3,11 +3,6 @@
     "red": "#c33"
   },
   "fonts": {
-    "sans-serif": [
-      "'Open Sans'",
-      "Helvetica",
-      "Arial",
-      "sans-serif"
-    ]
+    "sans-serif": ["'Open Sans'", "Helvetica", "Arial", "sans-serif"]
   }
 }
