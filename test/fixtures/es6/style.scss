@@ -1,4 +1,4 @@
-@import "variables.js";
+@import 'variables.js';
 
 body {
   content: '#{$variables}';
