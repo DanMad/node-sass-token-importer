@@ -1,25 +1,23 @@
-name: Next - Release npm package
+name: Release npm package
 
 on:
   push:
     branches:
-      - next
+      - main
 
 jobs:
   release:
-    name: Next - Release
+    name: Release
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout next
-        uses: actions/checkout@v2
-        with:
-          ref: next
-      - name: Install Node.JS
+      - name: Checkout main
+        uses: actions/checkout@main
+      - name: Install node
         uses: actions/setup-node@v1
         with:
           node-version: "12.19.0"
       - name: Install Yarn
-        run: npm install --global yarn@1.22.10
+        run: npm install --global yarn
       - name: Setup CI
         run: yarn ci
       - name: Build
@@ -27,7 +25,7 @@ jobs:
       - name: Tests
         run: yarn test
       - name: Release
-        run: yarn run semantic-release
+        run: yarn run semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

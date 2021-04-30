@@ -1,12 +1,6 @@
 # Git
 .gitignore
 
-# Github workflows
-.github
-
-# Husky
-.husky
-
 # Ignore files
 .*ignore
 
