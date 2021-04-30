@@ -1,6 +1,9 @@
 # Git
 .gitignore
 
+# Github workflows
+.github
+
 # Ignore files
 .*ignore
 
