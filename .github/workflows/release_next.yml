@@ -26,6 +26,13 @@ jobs:
         run: yarn build
       - name: Tests
         run: yarn test
+      - name: Delete latest next release
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 1
+          delete_tag_pattern: next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         run: yarn run semantic-release
         env:
