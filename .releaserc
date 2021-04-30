@@ -1,6 +1,6 @@
 {
     "branches": [
         {name: 'main'},
-        {name: 'next', channel: 'next', prerelease: 'next'}
+        {name: 'next', prerelease: true}
     ]
 }
