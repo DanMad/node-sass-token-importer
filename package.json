@@ -44,7 +44,6 @@
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "semantic-release": "^17.4.2",
-    "semantic-release-github-pr": "^6.0.1",
     "sort-package-json": "^1.49.0"
   },
   "peerDependencies": {
