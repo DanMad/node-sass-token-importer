@@ -11,6 +11,7 @@ A token importer for [node-sass](https://github.com/sass/node-sass) that allows 
 This package hooks into the node-sass [importer api](https://github.com/sass/node-sass#importer--v200---experimental).
 
 ```javascript
+// Make sure all `peerDependencies` are correctly installed in `node_modules`
 var sass = require('node-sass');
 var tokenImporter = require('node-sass-token-importer');
 
@@ -36,6 +37,7 @@ var result = sass.renderSync({
 To run this using node-sass CLI, point `--importer` to your installed `node-sass-token-importer`, for example:
 
 ```sh
+# Make sure all `peerDependencies` are correctly installed in `node_modules`
 ./node_modules/.bin/node-sass --importer node_modules/node-sass-token-importer/dist/cli.js --recursive ./src --output ./dist
 ```
 

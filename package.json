@@ -35,7 +35,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
     "chai": "^4.3.4",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
@@ -47,6 +47,8 @@
     "sort-package-json": "^1.49.0"
   },
   "peerDependencies": {
+    "@babel/core": ">=7.0.0",
+    "@babel/preset-env": ">=7.0.0",
     "node-sass": ">=5.0.0"
   },
   "engines": {
