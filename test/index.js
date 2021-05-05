@@ -46,7 +46,9 @@ describe('Import type test (JSON)', function () {
       importer: tokenImporter(),
     });
 
-    expect(result.css.toString()).to.eql(EXPECTATION);
+    expect(result.css.toString()).to.eql(
+      'body {\n  color: #c33;\n  font: 700 1rem Helvetica, Arial, sans-serif; }\n',
+    );
   });
 
   it('imports maps', function () {
@@ -56,7 +58,7 @@ describe('Import type test (JSON)', function () {
     });
 
     expect(result.css.toString()).to.eql(
-      'body {\n  color: #c33;\n  font-family: "Open Sans", Helvetica, Arial, sans-serif; }\n',
+      'body {\n  color: #c33;\n  font: 700 1rem Helvetica, Arial, sans-serif; }\n',
     );
   });
 
@@ -216,7 +218,9 @@ describe('Import type test (JSON5)', function () {
       importer: tokenImporter(),
     });
 
-    expect(result.css.toString()).to.eql(EXPECTATION);
+    expect(result.css.toString()).to.eql(
+      'body {\n  color: #c33;\n  font: 700 1rem Helvetica, Arial, sans-serif; }\n',
+    );
   });
 
   it('imports maps', function () {
@@ -226,7 +230,7 @@ describe('Import type test (JSON5)', function () {
     });
 
     expect(result.css.toString()).to.eql(
-      'body {\n  color: #c33;\n  font-family: "Open Sans", Helvetica, Arial, sans-serif; }\n',
+      'body {\n  color: #c33;\n  font: 700 1rem Helvetica, Arial, sans-serif; }\n',
     );
   });
 

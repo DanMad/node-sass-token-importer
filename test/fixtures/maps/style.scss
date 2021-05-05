@@ -2,5 +2,5 @@
 
 body {
   color: map-get($colors, red);
-  font-family: map-get($fonts, sans-serif);
+  font: map-get($fonts, sans-serif);
 }

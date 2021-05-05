@@ -1,3 +1,4 @@
 {
-  colors: ['#c33', '#33c'], // Array of items
+  colors: ['#c33', '#33c'],
+  font: '700 1rem Helvetica, Arial, sans-serif',
 }
