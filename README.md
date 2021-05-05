@@ -101,26 +101,6 @@ Since JSON doesn't map directly to Sass's data types, a common source of confusi
 }
 ```
 
-### Importing comma separated arguments
-
-It is recommended that you import comma separated arguments as arrays. This will ensure the scalability of your variables, allowing for them to be stored as `!global` variables and values of a `map-key`.
-
-##### Recommended
-
-```json
-{
-  "fontFamily": ["'Open Sans'", "Helvetica", "Arial", "sans-serif"]
-}
-```
-
-##### Not recommended
-
-```json
-{
-  "fontFamily": "'Open Sans', Helvetica, Arial, sans-serif"
-}
-```
-
 ### Importing `.ts` and/or `.js` Files
 
 You can also import `.js` and `.ts` files. This way you can use TypeScript or JavaScript to compose and export your tokens.
