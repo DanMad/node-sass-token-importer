@@ -100,7 +100,7 @@ function parseValue(value, opts = {}) {
     return parseMap(value, opts);
   } else if (_.isString(value) && /,(?![^()]*(?:\([^()]*\))?\))/.test(value)) {
     return `(${value})`;
-  } else if (value === '') {
+  } else if (_.isString(value) && value === '') {
     return '""'; // Return explicitly an empty string (Sass would otherwise throw an error as the variable is set to nothing)
   } else {
     return value;
