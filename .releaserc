@@ -1,6 +1,11 @@
 {
-    "branches": [
-        {name: 'main'},
-        {name: 'next', prerelease: true}
-    ]
+  "branches": [
+    {
+      name: 'main'
+    },
+    {
+      name: 'next',
+      prerelease: true
+    }
+  ]
 }

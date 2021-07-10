@@ -1,4 +1,4 @@
-name: Test npm package
+name: Test Package
 
 on:
   pull_request:
@@ -8,23 +8,25 @@ on:
 
 jobs:
   release:
-    name: PR Testing
+    name: Test Package
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout PR branch
+      - name: Checkout Pull Request Branch
         uses: actions/checkout@v2
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: Install Node.JS
-        uses: actions/setup-node@v1
+      - name: Install Node
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.19.0"
+          node-version: 'lts/erbium'
+      - name: Remove 'node_modules'
+        run: rm -rf node_modules/**
       - name: Install Yarn
-        run: npm install --global yarn@1.22.10
-      - name: Setup CI
-        run: yarn ci
+        run: npm install --global yarn
+      - name: Configure CI
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Tests
+      - name: Test
         run: yarn test

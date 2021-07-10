@@ -1,4 +1,4 @@
-name: Main - Release npm package
+name: Release Package
 
 on:
   push:
@@ -7,26 +7,28 @@ on:
 
 jobs:
   release:
-    name: Main - Release
+    name: Release Package
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout main
+      - name: Checkout 'main' Branch
         uses: actions/checkout@v2
         with:
           ref: main
-      - name: Install Node.JS
-        uses: actions/setup-node@v1
+      - name: Install Node
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.19.0"
+          node-version: 'lts/erbium'
+      - name: Remove 'node_modules'
+        run: rm -rf node_modules/**
       - name: Install Yarn
-        run: npm install --global yarn@1.22.10
-      - name: Setup CI
-        run: yarn ci
+        run: npm install --global yarn
+      - name: Configure CI
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Tests
+      - name: Test
         run: yarn test
-      - name: Release
+      - name: Publish
         run: yarn run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

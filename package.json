@@ -1,7 +1,7 @@
 {
   "name": "node-sass-token-importer",
   "version": "0.0.0-development",
-  "description": "Allows the importing of TypeScript, JavaScript, and JSON in Sass files parsed by node-sass",
+  "description": "A module that extends node-sass by supporting the imports of cross-language design tokens",
   "keywords": [
     "importer",
     "javascript",
@@ -12,19 +12,15 @@
     "typescript",
     "tokens"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DanMad/node-sass-token-importer.git"
-  },
+  "homepage": "https://www.npmjs.com/package/node-sass-token-importer",
+  "bugs": "https://github.com/DanMad/node-sass-token-importer/issues",
+  "repository": "https://github.com/DanMad/node-sass-token-importer.git",
   "license": "MIT",
+  "author": "DanMad",
   "main": "dist/index.js",
   "scripts": {
-    "build": "mkdirp dist && babel src -d dist",
-    "prepublishOnly": "npm run build",
-    "sort-package": "sort-package-json",
-    "test": "mocha --require ./utils/babel-register.js",
-    "prepare": "husky install",
-    "ci": "rm -rf node_modules && yarn install --frozen-lockfile"
+    "build": "rm -rf dist/** && babel src -d dist",
+    "test": "mocha --require ./utils/babel-register.js"
   },
   "dependencies": {
     "@babel/register": "^7.13.16",
@@ -39,7 +35,6 @@
     "chai": "^4.3.4",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "mkdirp": "^1.0.4",
     "mocha": "^8.3.2",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
