@@ -1,11 +1,8 @@
-# Git
-.gitignore
+# Config files
+*.config.*
 
-# Github workflows
-.github
-
-# Husky
-.husky
+# Hidden directories
+.*/**
 
 # Ignore files
 .*ignore
@@ -14,7 +11,7 @@
 .*rc
 
 # Source directory
-src
+src/
 
-# Tests
-test
+# Test directory
+test/

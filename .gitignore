@@ -1,11 +1,12 @@
 # Dependencies
-node_modules
+node_modules/
 
-# Distributed version
-dist
+# Distribution directory
+dist/
 
-# Logs
+# Log files
 *.log
 
-# MacOS
+# Operating System
 .DS_Store
+Thumbs.db
