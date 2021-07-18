@@ -1,2 +1,8 @@
-# Distribution directory
+# Dependencies
+node_modules/
+
+# Distribution directories
 dist/
+
+# Hidden directories
+.*/**
