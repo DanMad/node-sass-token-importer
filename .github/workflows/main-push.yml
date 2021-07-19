@@ -34,6 +34,8 @@ jobs:
         with:
           node-version: 'lts/erbium'
 
+      - run: chmod +x .github/scripts/create-github-release.sh
+
       - run: .github/scripts/create-github-release.sh
 
     runs-on: ubuntu-latest
@@ -65,7 +67,7 @@ jobs:
 
       - run: yarn publish
 
-name: Merge Pull Request
+name: Push (main)
 
 on:
   push:
