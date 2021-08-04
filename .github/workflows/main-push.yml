@@ -16,27 +16,21 @@ jobs:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 'lts/fermium'
-      - run: chmod +x .github/create-github-release
-      - run: .github/create-github-release
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - run: |
+        chmod +x .github/scripts/create-github-release.sh
+        .github/scripts/create-github-release.sh
+
   create_npm_release:
     name: Create NPM Release
     runs-on: ubuntu-latest
     needs: create_github_release
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 'lts/fermium'
-      - run: rm -rf node_modules
-      - run: npm install --global yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: yarn publish
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - run: |
+        npm install --global yarn
+        yarn bootstrap-frozen
+        yarn build
+        yarn publish
