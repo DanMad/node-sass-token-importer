@@ -1,14 +1,8 @@
 # Config files
 *.config.*
 
-# Hidden directories
-.*/**
-
-# Ignore files
-.*ignore
-
-# Run Command files
-.*rc
+# Hidden directories and files
+.*
 
 # Source directory
 src/

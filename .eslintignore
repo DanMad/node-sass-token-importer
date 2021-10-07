@@ -4,5 +4,5 @@ node_modules/
 # Distribution directories
 dist/
 
-# Hidden directories
-.*/**
+# Hidden directories and files
+.*
