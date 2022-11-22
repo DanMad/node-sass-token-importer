@@ -29,22 +29,22 @@
     "test": "mocha --require ./utils/babel-register.js"
   },
   "dependencies": {
-    "@babel/register": "^7.17.0",
+    "@babel/register": "^7.18.9",
     "is-there": "^4.5.1",
-    "json5": "^2.2.0",
+    "json5": "^2.2.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.5",
-    "@babel/preset-env": "^7.16.11",
-    "chai": "^4.3.6",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.4",
-    "mocha": "^9.2.1",
-    "node-sass": "^7.0.1",
-    "prettier": "^2.5.1",
-    "sort-package-json": "^1.54.0"
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "chai": "^4.3.7",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "mocha": "^10.1.0",
+    "node-sass": "^8.0.0",
+    "prettier": "^2.7.1",
+    "sort-package-json": "^2.1.0"
   },
   "peerDependencies": {
     "@babel/core": ">=7.0.0",
