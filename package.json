@@ -21,7 +21,8 @@
     "bootstrap": "yarn install",
     "postbootstrap": "husky install && chmod +x .husky/*",
     "build": "rm -rf dist/* && babel src -d dist",
-    "test": "mocha --require ./utils/babel-register.js"
+    "test": "mocha --require ./utils/babel-register.js",
+    "unstrap": "rm -rf dist node_modules yarn-error.log"
   },
   "dependencies": {
     "@babel/register": "^7.18.9",
